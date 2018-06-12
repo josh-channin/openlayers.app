@@ -17,16 +17,13 @@ body {
     text-shadow: 1px 1px black;
 }
 
-.navbar-brand .fas {
+.fas {
+    cursor: pointer;
     font-size: 12px;
 }
 
-.fas {
-    cursor: pointer;
-}
-
 .fa-map:hover {
-    color: #666;
+    color: #909090;
 }
 
 .container {
