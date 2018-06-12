@@ -33,6 +33,14 @@ var layers = {
         }),
         visible: false
     }),
+    'satellite-streets': new ol.layer.Tile({
+        source: new ol.source.XYZ({
+            url: 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/256/{z}/{x}/{y}?access_token=' +
+                key + '',
+
+        }),
+        visible: false
+    }),
     streets: new ol.layer.Tile({
         source: new ol.source.XYZ({
             url: 'https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token=' +
@@ -73,6 +81,14 @@ var layers = {
         }),
         visible: false
     }),
+    'whamm!': new ol.layer.Tile({
+        source: new ol.source.XYZ({
+            url: 'https://api.mapbox.com/styles/v1/josh-channin/cjiccdo4i0cpt2rpebzbl39cw/tiles/256/{z}/{x}/{y}?access_token=' +
+                key + '',
+
+        }),
+        visible: false
+    }),
 }
 var map = new ol.Map({
     controls: new ol.control.defaults({
@@ -85,11 +101,13 @@ var map = new ol.Map({
         layers.dark,
         layers.light,
         layers.satellite,
+        layers['satellite-streets'],
         layers.streets,
         layers.vintage,
         layers.terminal,
         layers.decimal,
-        layers.north
+        layers.north,
+        layers['whamm!'],
     ],
     target: 'map',
     view: new ol.View({
@@ -106,10 +124,12 @@ map.on('pointerup', function () {
     map.getViewport().style.cursor = "-webkit-grab";
 });
 var counter = 0;
-document.querySelector('.fa-map').addEventListener('click', function () {
+document.querySelector('.navbar-text span').innerHTML = '<span>' + Object.keys(layers)[0] + '</span>';
+document.querySelector('.navbar-text').addEventListener('click', function () {
     counter >= Object.keys(layers).length - 1 ? counter = 0 : counter++;
     Object.keys(layers).forEach(function (l) {
         layers[l].setVisible(false)
     })
     layers[Object.keys(layers)[counter]].setVisible(true);
+    document.querySelector('.navbar-text span').innerHTML = '<span>' + Object.keys(layers)[counter] + '</span>';
 });
