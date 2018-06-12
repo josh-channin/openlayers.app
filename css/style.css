@@ -10,7 +10,7 @@ body {
     background-color: transparent !important;
 }
 
-.navbar-brand {
+.navbar-brand, .navbar-text {
     color: #FFFFFF !important;
     font-weight: 600;
     font-size: 15px;
@@ -19,4 +19,16 @@ body {
 
 .navbar-brand .fas {
     font-size: 12px;
+}
+
+.fas {
+    cursor: pointer;
+}
+
+.fa-map:hover {
+    color: #666;
+}
+
+.container {
+    user-select: none;
 }
