@@ -5,3 +5,18 @@ body {
 #map {
     height: 100vh;
 }
+
+.bg-trans {
+    background-color: transparent !important;
+}
+
+.navbar-brand {
+    color: #FFFFFF !important;
+    font-weight: 600;
+    font-size: 15px;
+    text-shadow: 1px 1px black;
+}
+
+.navbar-brand .fas {
+    font-size: 12px;
+}

@@ -2,9 +2,14 @@
 <html>
 
 <head>
-    <title>OpenLayers.app</title>
+    <title>openlayers.app</title>
+    <link rel="shortcut icon" href="http://simpleicon.com/wp-content/uploads/map-marker-2.png">
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
     <link rel="stylesheet" href="https://unpkg.com/normalize.css@8.0.0/normalize.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script> -->
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
@@ -12,19 +17,26 @@
 </head>
 
 <body>
+    <nav class="container navbar fixed-top navbar-light bg-trans c-white">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-map-marker"></i> openlayers.app</a>
+    </nav>
+
     <div id="map" class="map"></div>
     <script>
-        var key = 'pk.eyJ1Ijoiam9zaC1jaGFubmluIiwiYSI6ImNqaWM1Ynk4cDFwMWIza25ib3V1M25xbDAifQ.i0piwRhrypyAPvVNg1EjtQ';
+        var key =
+            'pk.eyJ1Ijoiam9zaC1jaGFubmluIiwiYSI6ImNqaWM1Ynk4cDFwMWIza25ib3V1M25xbDAifQ.i0piwRhrypyAPvVNg1EjtQ';
         var map = new ol.Map({
             controls: new ol.control.defaults({
                 attribution: false,
-                zoom: true,
-                rotate: true
+                zoom: false,
+                rotate: false
             }),
             layers: [
                 new ol.layer.Tile({
                     source: new ol.source.XYZ({
-                        url: 'https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/256/{z}/{x}/{y}?access_token=' + key + ''
+                        url: 'https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/256/{z}/{x}/{y}?access_token=' +
+                            key + ''
                     })
                 })
             ],
@@ -36,4 +48,5 @@
         });
     </script>
 </body>
+
 </html>
