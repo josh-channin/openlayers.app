@@ -35,15 +35,24 @@
     <nav class="container navbar fixed-top navbar-light bg-trans c-white">
         <a class="navbar-brand bounceInDown animated " href="#">
             <i class="fas fa-map-marker"></i> openlayers.app</a>
-        <span class="layers navbar-text">
+        <!-- <span class="layers navbar-text">
+            <span id="borders" data-id="borders">Border Crossings</span>
             <span id="militaryBases" data-id="militaryBases">Military Bases</span>
             <span id="strategicPorts" data-id="strategicPorts">Strategic Ports</span>
-        </span>
+        </span> -->
         <span class="basemaps navbar-text bounceInDown animated ">
-            <span>terminal</span>
+            <span>dark</span>
             <i class="fas fa-map"></i>
         </span>
     </nav>
+
+    <div class="layers">
+        <span>Layers </span>
+        <span id="borders" data-id="borders">Border Crossings</span>
+        <span id="militaryBases" data-id="militaryBases">Military Bases</span>
+        <span id="strategicPorts" data-id="strategicPorts">Strategic Ports</span>
+        <span id="danger" data-id="danger">Danger Zones and Restricted Areas</span>
+    </div>
 
     <div id="map" class="map">
         <a class="mapboxgl-ctrl-logo" target="_blank" href="https://www.mapbox.com/" aria-label="Mapbox logo"></a>

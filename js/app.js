@@ -2,7 +2,31 @@ var key =
     'pk.eyJ1Ijoiam9zaC1jaGFubmluIiwiYSI6ImNqaWM1Ynk4cDFwMWIza25ib3V1M25xbDAifQ.i0piwRhrypyAPvVNg1EjtQ';
 var NTAD =
     'https://maps.bts.dot.gov/services/rest/services/NTAD'
+var NOAA =
+    'https://coast.noaa.gov/arcgis/rest/services/OceanReportingTool/OceanReportingTool/MapServer'
 var layers = {
+    danger: new ol.layer.Tile({
+        visible: false,
+        source: new ol.source.TileArcGISRest({
+            params: {
+                layers: 'show:37',
+                FORMAT: 'png',
+                DPI: 96
+            },
+            url: NOAA
+        }),
+    }), 
+    borders: new ol.layer.Tile({
+        visible: false,
+        source: new ol.source.TileArcGISRest({
+            params: {
+                layers: 'show:0',
+                FORMAT: 'png',
+                DPI: 96
+            },
+            url: `${NTAD}/Border_Crossings/MapServer`
+        }),
+    }), 
     strategicPorts: new ol.layer.Tile({
         visible: false,
         source: new ol.source.TileArcGISRest({
@@ -33,7 +57,7 @@ var basemaps = {
                 key + '',
 
         }),
-        visible: false
+        visible: true
     }),
     outdoors: new ol.layer.Tile({
         source: new ol.source.XYZ({
@@ -89,7 +113,7 @@ var basemaps = {
                 key + '',
 
         }),
-        visible: true
+        visible: false
     }),
     decimal: new ol.layer.Tile({
         source: new ol.source.XYZ({
@@ -135,7 +159,9 @@ var map = new ol.Map({
         basemaps.north,
         basemaps['whamm!'],
         layers.strategicPorts,
-        layers.militaryBases
+        layers.militaryBases,
+        layers.borders,
+        layers.danger
     ],
     target: 'map',
     view: new ol.View({
@@ -162,11 +188,15 @@ document.querySelector('.basemaps').addEventListener('click', function () {
     document.querySelector('.basemaps span').innerHTML = '<span>' + Object.keys(basemaps)[counter] + '</span>';
 });
 
-document.querySelectorAll('.layers span').forEach(el => el.addEventListener('click', function (e) {
-    // console.log(e.srcElement.id);
+document.querySelectorAll('.layers span').forEach(el => {
+    el.addEventListener('click', layerClick);
+});
+
+function layerClick(e) {    
+    // e.srcElement.classList.add('layer-active');
     layers[e.srcElement.id] ?
         !layers[e.srcElement.id].getVisible() ?
             layers[e.srcElement.id].setVisible(true) :
             layers[e.srcElement.id].setVisible(false)
         : console.log('no layer');
-}));
+};

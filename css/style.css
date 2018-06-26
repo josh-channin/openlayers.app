@@ -22,12 +22,39 @@ body {
     font-size: 12px;
 }
 
-.navbar-text {
+.navbar-text, .layers {
     cursor: pointer;
 }
 
-.navbar-text span:hover {
+.navbar-text span:hover, .layers span:hover {
     color: rgba(255, 255, 255, .8) !important;
+}
+
+.layers {
+    position: absolute;
+    background: transparent;
+    top: 25%;
+    left: 10px;
+    width: auto;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.layers span:first-child {
+    font-size: 125%;
+    margin-bottom: 6px;
+}
+
+.layer-active {
+    border-left: 1px solid;
+    margin: 6px 0px;
+    padding: 0px 8px;
+}
+
+.layers span {
+    color: white;
 }
 
 .container {
