@@ -1,13 +1,39 @@
 var key =
     'pk.eyJ1Ijoiam9zaC1jaGFubmluIiwiYSI6ImNqaWM1Ynk4cDFwMWIza25ib3V1M25xbDAifQ.i0piwRhrypyAPvVNg1EjtQ';
+var NTAD =
+    'https://maps.bts.dot.gov/services/rest/services/NTAD'
 var layers = {
+    strategicPorts: new ol.layer.Tile({
+        visible: false,
+        source: new ol.source.TileArcGISRest({
+            params: {
+                layers: 'show:0',
+                FORMAT: 'png',
+                DPI: 96
+            },
+            url: `${NTAD}/Strategic_Ports/MapServer`
+        }),
+    }),
+    militaryBases: new ol.layer.Tile({
+        visible: false,
+        source: new ol.source.TileArcGISRest({
+            params: {
+                layers: 'show:0',
+                FORMAT: 'png',
+                DPI: 96
+            },
+            url: `${NTAD}/MilitaryBases/MapServer`
+        }),
+    }),
+}
+var basemaps = {
     dark: new ol.layer.Tile({
         source: new ol.source.XYZ({
             url: 'https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token=' +
                 key + '',
 
         }),
-        visible: true
+        visible: false
     }),
     outdoors: new ol.layer.Tile({
         source: new ol.source.XYZ({
@@ -63,7 +89,7 @@ var layers = {
                 key + '',
 
         }),
-        visible: false
+        visible: true
     }),
     decimal: new ol.layer.Tile({
         source: new ol.source.XYZ({
@@ -97,17 +123,19 @@ var map = new ol.Map({
         rotate: false
     }),
     layers: [
-        layers.outdoors,
-        layers.dark,
-        layers.light,
-        layers.satellite,
-        layers['satellite-streets'],
-        layers.streets,
-        layers.vintage,
-        layers.terminal,
-        layers.decimal,
-        layers.north,
-        layers['whamm!'],
+        basemaps.outdoors,
+        basemaps.dark,
+        basemaps.light,
+        basemaps.satellite,
+        basemaps['satellite-streets'],
+        basemaps.streets,
+        basemaps.vintage,
+        basemaps.terminal,
+        basemaps.decimal,
+        basemaps.north,
+        basemaps['whamm!'],
+        layers.strategicPorts,
+        layers.militaryBases
     ],
     target: 'map',
     view: new ol.View({
@@ -124,12 +152,21 @@ map.on('pointerup', function () {
     map.getViewport().style.cursor = "-webkit-grab";
 });
 var counter = 0;
-document.querySelector('.navbar-text span').innerHTML = '<span>' + Object.keys(layers)[0] + '</span>';
-document.querySelector('.navbar-text').addEventListener('click', function () {
-    counter >= Object.keys(layers).length - 1 ? counter = 0 : counter++;
-    Object.keys(layers).forEach(function (l) {
-        layers[l].setVisible(false)
+document.querySelector('.basemaps span').innerHTML = '<span>' + Object.keys(basemaps)[0] + '</span>';
+document.querySelector('.basemaps').addEventListener('click', function () {
+    counter >= Object.keys(basemaps).length - 1 ? counter = 0 : counter++;
+    Object.keys(basemaps).forEach(function (l) {
+        basemaps[l].setVisible(false)
     })
-    layers[Object.keys(layers)[counter]].setVisible(true);
-    document.querySelector('.navbar-text span').innerHTML = '<span>' + Object.keys(layers)[counter] + '</span>';
+    basemaps[Object.keys(basemaps)[counter]].setVisible(true);
+    document.querySelector('.basemaps span').innerHTML = '<span>' + Object.keys(basemaps)[counter] + '</span>';
 });
+
+document.querySelectorAll('.layers span').forEach(el => el.addEventListener('click', function (e) {
+    // console.log(e.srcElement.id);
+    layers[e.srcElement.id] ?
+        !layers[e.srcElement.id].getVisible() ?
+            layers[e.srcElement.id].setVisible(true) :
+            layers[e.srcElement.id].setVisible(false)
+        : console.log('no layer');
+}));

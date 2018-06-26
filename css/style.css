@@ -26,7 +26,7 @@ body {
     cursor: pointer;
 }
 
-.navbar-text:hover {
+.navbar-text span:hover {
     color: rgba(255, 255, 255, .8) !important;
 }
 
